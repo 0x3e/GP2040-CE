@@ -32,12 +32,18 @@ void core1() {
 
 int main() {
 	// Create GP2040 Main Core (core0), Core1 is dependent on Core0
+        stdio_uart_init();
+        sleep_ms(1000);
+	printf("\n\n\n");
+	printf("Starting gp2040\n");
 	GP2040 * gp2040 = new GP2040();
 	gp2040->setup();
 
+	printf("Starting core1\n");
 	// Create GP2040 Thread for Core1
 	multicore_launch_core1(core1);
 
+	printf("Starting core0 loop\n");
 	// Start Core0 Loop
 	gp2040->run();
 	return 0;
